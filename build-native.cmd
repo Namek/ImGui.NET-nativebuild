@@ -1,6 +1,7 @@
 @setlocal
 @echo off
 
+set ROOT_DIR=%~dp0
 set CIMGUI_ROOT=%~dp0cimgui
 set BUILD_CONFIG=Debug
 set BUILD_ARCH=x64
@@ -24,9 +25,9 @@ If NOT exist ".\build\%BUILD_ARCH%" (
   mkdir build\%BUILD_ARCH%
 )
 pushd build\%BUILD_ARCH%
-cmake -DCMAKE_GENERATOR_PLATFORM=%BUILD_CMAKE_GENERATOR_PLATFORM% ..\..
+cmake -DCMAKE_GENERATOR_PLATFORM=%BUILD_CMAKE_GENERATOR_PLATFORM% -DIMGUI_FREETYPE="1" -DFREETYPE_PATH:PATH=%ROOT_DIR%  ../..
 
-echo Calling cmake --build . --config %BUILD_CONFIG%
+echo Calling build
 cmake --build . --config %BUILD_CONFIG%
 popd
 popd
